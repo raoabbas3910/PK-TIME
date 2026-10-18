@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Live Calendar & Time</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #11998e, #38ef7d); /* Pakistan Green Theme */
+        }
+
+        .clock-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            border-top: 5px solid #11998e;
+        }
+
+        .location {
+            font-size: 1.2rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .time {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 5px;
+            font-variant-numeric: tabular-nums; /* Prevent text shifting */
+        }
+
+        .date {
+            font-size: 1.3rem;
+            color: #444;
+            font-weight: 500;
+            background: #eef2f3;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock-container">
+        <div class="location">Pakistan Standard Time</div>
+        <div class="time" id="pkt-time">00:00:00 PM</div>
+        <div class="date" id="pkt-date">Loading Date...</div>
+    </div>
+
+    <script>
+        function updatePakistanTime() {
+            // JavaScript Internationalization API ka use karke Pakistan time zone target kiya hai
+            const optionsTime = {
+                timeZone: 'Asia/Karachi',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+
+            const optionsDate = {
+                timeZone: 'Asia/Karachi',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            const now = new Date();
+            
+            // Time aur Date ko formatting ke sath nikalna
+            const timeString = now.toLocaleTimeString('en-US', optionsTime);
+            const dateString = now.toLocaleDateString('en-US', optionsDate);
+
+            // HTML elements ko update karna
+            document.getElementById('pkt-time').textContent = timeString;
+            document.getElementById('pkt-date').textContent = dateString;
+        }
+
+        // Har 1 second (1000ms) baad time update hoga
+        setInterval(updatePakistanTime, 1000);
+
+        // Page load hote hi clock chal jaye
+        updatePakistanTime();
+    </script>
+
+</body>
+</html>
